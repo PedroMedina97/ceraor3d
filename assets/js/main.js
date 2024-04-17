@@ -1,11 +1,3 @@
-/**
-* Template Name: Nova
-* Template URL: https://bootstrapmade.com/nova-bootstrap-business-template/
-* Updated: Mar 17 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
 
@@ -48,9 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileNavHide.classList.toggle('d-none');
   }
 
-  /**
-   * Toggle mobile nav dropdowns
-   */
   const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');
 
   navDropdowns.forEach(el => {
@@ -67,9 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   });
 
-  /**
-   * Scroll top button
-   */
   const scrollTop = document.querySelector('.scroll-top');
   if (scrollTop) {
     const togglescrollTop = function() {
@@ -83,16 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
   }
 
-  /**
-   * Initiate glightbox
-   */
   const glightbox = GLightbox({
     selector: '.glightbox'
   });
 
-  /**
-   * Init swiper slider with 1 slide at once in desktop view
-   */
   new Swiper('.slides-1', {
     speed: 600,
     loop: true,
@@ -144,9 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /**
-   * Porfolio isotope and filter
-   */
+
   let portfolionIsotope = document.querySelector('.portfolio-isotope');
 
   if (portfolionIsotope) {
@@ -181,9 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-  /**
-   * Animation on scroll function and init
-   */
   function aos_init() {
     AOS.init({
       duration: 800,
