@@ -34,6 +34,12 @@
   text-justify: inter-word;
 }
 
+.list-about{
+  list-style-type: none;
+  margin-bottom: 22px;
+  border-bottom: 1px solid #1c88ba;
+}
+
 .map-responsive{
   overflow:hidden;
   padding-bottom:56.25%;
