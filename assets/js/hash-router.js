@@ -1,4 +1,4 @@
-const pageTitle = "CERAOR 3D";
+const pageTitle = "CERAOR3D";
 // create an object that maps the url to the template, title, and description
 const routes = {
 	404: {
