@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
-
-  /**
-   * Preloader
-   */
+  
   const preloader = document.querySelector('#preloader');
   if (preloader) {
     window.addEventListener('load', () => {
@@ -24,37 +21,70 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Mobile nav toggle
    */
+  const body = document.body;
   const mobileNavShow = document.querySelector('.mobile-nav-show');
   const mobileNavHide = document.querySelector('.mobile-nav-hide');
 
-  document.querySelectorAll('.mobile-nav-toggle').forEach(el => {
-    el.addEventListener('click', function(event) {
-      event.preventDefault();
-      mobileNavToogle();
-    })
-  });
-
-  function mobileNavToogle() {
-    document.querySelector('body').classList.toggle('mobile-nav-active');
-    mobileNavShow.classList.toggle('d-none');
-    mobileNavHide.classList.toggle('d-none');
+  function toggleMobileNav(show) {
+    if (show) {
+      body.classList.add('mobile-nav-active');
+      mobileNavShow.classList.add('d-none');
+      mobileNavHide.classList.remove('d-none');
+    } else {
+      body.classList.remove('mobile-nav-active');
+      mobileNavShow.classList.remove('d-none');
+      mobileNavHide.classList.add('d-none');
+    }
   }
 
-  const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');
+  mobileNavShow.addEventListener('click', () => toggleMobileNav(true));
+  mobileNavHide.addEventListener('click', () => toggleMobileNav(false));
 
-  navDropdowns.forEach(el => {
-    el.addEventListener('click', function(event) {
-      if (document.querySelector('.mobile-nav-active')) {
-        event.preventDefault();
-        this.classList.toggle('active');
-        this.nextElementSibling.classList.toggle('dropdown-active');
+  // Opcional: cerrar menú al hacer clic en un enlace del navbar
+  document.querySelectorAll('.navbar a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const parent = link.parentElement;
+    const isDropdownToggle = parent.classList.contains('dropdown') && link.nextElementSibling;
 
-        let dropDownIndicator = this.querySelector('.dropdown-indicator');
+    // Si es el botón de despliegue (como "Servicios"), evitar navegación y NO cerrar el menú
+    if (isDropdownToggle) {
+      e.preventDefault(); // Solo despliega el submenú
+    }
+
+    // Si es una subopción dentro del dropdown y estamos en móvil, cerrar el menú
+    if (!isDropdownToggle && body.classList.contains('mobile-nav-active')) {
+      toggleMobileNav(false);
+    }
+  });
+});
+  document.querySelectorAll('.navbar .dropdown a.dropdown-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    // Previene que Bootstrap cierre el menú antes de cambiar la vista
+    e.stopPropagation();
+  });
+});
+
+const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');
+
+navDropdowns.forEach(el => {
+  el.addEventListener('click', function(event) {
+    if (document.body.classList.contains('mobile-nav-active')) {
+      event.preventDefault(); // 👈 evita navegación
+      this.classList.toggle('active');
+
+      const submenu = this.nextElementSibling;
+      if (submenu) {
+        submenu.classList.toggle('dropdown-active');
+      }
+
+      const dropDownIndicator = this.querySelector('.dropdown-indicator');
+      if (dropDownIndicator) {
         dropDownIndicator.classList.toggle('bi-chevron-up');
         dropDownIndicator.classList.toggle('bi-chevron-down');
       }
-    })
+    }
   });
+});
 
   const scrollTop = document.querySelector('.scroll-top');
   if (scrollTop) {
